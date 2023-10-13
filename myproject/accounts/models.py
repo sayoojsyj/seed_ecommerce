@@ -22,8 +22,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
   USERNAME_FIELD = 'email'
   REQUIRED_FIELDS = ['name','phone']
 
-  def _str_(self):
-    return self.email
+  def __str__(self):
+    return self.name
 
 # from django.contrib.auth.models import AbstractUser,BaseUserManager
 # # from django.utils.translation import ugettext_lazy as _

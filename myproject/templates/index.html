@@ -53,7 +53,9 @@
     </div> {% endcomment %}
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">SEEDHUB</a>
+	      <a class="navbar-brand" href="index.html"></a>
+		  <img src="/static/images/large_seededen.png" alt="d"  width="125" height="75">
+
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
@@ -75,7 +77,10 @@
 	          
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 			  {% if request.user.is_authenticated%}
-			  	<li class="nav-item"><a href="" class="nav-link">{{ request.user }}</a></li>
+
+		  	  
+			  	<li class="nav-item"><a href="" class="nav-link">{{ request.user.name }}</a></li>
+				
 			   	<li class="nav-item"><a href="{% url "logout" %}" class="nav-link">Logout</a></li>
 		   	  {% else %}
 			   	<li class="nav-item"><a href="{% url "signup" %}" class="nav-link">Signup</a></li>
@@ -113,7 +118,7 @@
 	          <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
 	            <div class="col-sm-12 ftco-animate text-center">
-	              <h1 class="mb-2">We deliver Organic and Hybrid &amp; Seeds</h1>
+	              <h1 class="mb-2">We deliver Organic and Hybrid Seeds</h1>
 	              {% comment %} <h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2> {% endcomment %}
 	              <p><a href="#" class="btn btn-primary">View Details</a></p>
 	            </div>

@@ -106,9 +106,10 @@ class LoginView(View):
         if request.user.is_authenticated:
             messages.warning(request, "You are logged in")
             return redirect('/')
-        name = request.POST.get('username')
+        # name = request.POST.get('username')
+        email = request.POST.get('email')
         pswrd = request.POST.get('password')
-        user = authenticate(request, username=name, password=pswrd)
+        user = authenticate(request, email=email, password=pswrd)
         if user is not None:
             login(request, user)
             messages.success(request, "Logged in successfully")
@@ -123,4 +124,6 @@ class LogoutView(View):
             logout(request)
             messages.success(request, "Logged out successfully")
         return redirect('/')
+    
+    
 
