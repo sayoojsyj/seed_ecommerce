@@ -1,78 +1,33 @@
-# from django.shortcuts import render,redirect
-# from django.contrib import messages
-# from .forms import CustomUserForm
-# from django.contrib.auth import authenticate,login,logout
-# # Create your views here.
-
-
-
-# def index(request):
-#     return render(request,'index.html')
-
-
-# def signup (request):
-#     if request.user.is_authenticated:
-#         messages.warning(request,"You are logged in")
-#         return redirect('/')
-#     else:
-#         form_details = CustomUserForm()
-#         if request.method =='POST':
-#             form_details = CustomUserForm(request.POST)
-#             if form_details.is_valid():
-#                 form_details.save()
-#                 messages.success(request,"Registered succecfully")
-#                 return redirect('login')
-#         context = {'form' : form_details}
-#         return render(request,"signup.html", context)
-
-
-
-
-
-# def loginn(request):
-#     if request.user.is_authenticated:
-#         messages.warning(request,"You are logged in")
-#         return redirect('/')
-#     else:
-#         if request.method == 'POST':
-#             name = request.POST.get('username')
-#             pswrd = request.POST.get('password')
-            
-#             user = authenticate(request, username=name, password=pswrd )
-            
-#             if user is not None:
-#                 login(request, user)
-#                 messages.success(request, "logged in succesfully")
-#                 return redirect("/")
-#             else:
-#                 messages.success(request, "invalid credentials")
-#                 return redirect('login')
-#     return render(request, 'login.html')
-
-
-
-
-# def logoutpage(request):
-#     if request.user.is_authenticated:
-#         logout(request)
-#         messages.success(request, "loged out succesfully")
-#         return redirect("/")
-
-
-
-
 
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.views import View
 from .forms import CustomUserForm
+from django.views.decorators.cache import never_cache
+from django.utils.decorators import method_decorator
+from accounts.models import CustomUser
 
 
+@method_decorator(never_cache, name='dispatch')
+class IndexView(View):
+    template_name = 'index.html'
 
+    def get(self, request):
+        return render(request, self.template_name)
+    
+    
+def current_user (request):
+    user_name = CustomUser.objects.all()
+    context = {'username' : user_name}
+    return render ( 'index.html' , context )
+
+
+@method_decorator(never_cache, name='dispatch')
 class SignupView(View):
     template_name = 'signup.html'
 
+     
     def get(self, request):
         if request.user.is_authenticated:
             messages.warning(request, "You are logged in")
@@ -80,7 +35,8 @@ class SignupView(View):
         form_details = CustomUserForm()
         context = {'form': form_details}
         return render(request, self.template_name, context)
-
+    
+    
     def post(self, request):
         if request.user.is_authenticated:
             messages.warning(request, "You are logged in")
@@ -92,9 +48,12 @@ class SignupView(View):
             return redirect('login')
         context = {'form': form_details}
         return render(request, self.template_name, context)
-
+    
+    
+@method_decorator(never_cache, name='dispatch')
 class LoginView(View):
     template_name = 'login.html'
+
 
     def get(self, request):
         if request.user.is_authenticated:
@@ -123,7 +82,7 @@ class LogoutView(View):
         if request.user.is_authenticated:
             logout(request)
             messages.success(request, "Logged out successfully")
-        return redirect('/')
+        return redirect('index')
     
     
 
