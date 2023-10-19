@@ -26,7 +26,7 @@ class Products (models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField()
     weight = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='get_file_path', blank=True, null=True)
+    image = models.ImageField(upload_to=get_file_path, blank=True, null=True)
     status = models.BooleanField(default=False, help_text="0=default, 1=hidden")
     Category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_code = models.CharField(max_length=20, unique=True)
