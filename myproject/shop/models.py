@@ -36,3 +36,10 @@ class Products (models.Model):
 
     def __str__(self):
         return self.name
+
+class banner_images(models.Model):
+    images = models.ImageField(upload_to=get_file_path, blank=True, null=True)
+    description = models.TextField()
+    
+    def __str__(self):
+        return self.images
