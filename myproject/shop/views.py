@@ -16,10 +16,14 @@ class IndexView(View):
     template_name = 'index.html'
 
     def get(self, request):
+        bnr_img = banner_images.objects.all()
        
         items = Products.objects.all()
-    
-        return render(request, 'index.html', {'item' : items})
+        context = {
+        'item' : items,
+        'photos' : bnr_img,
+        }
+        return render(request, 'index.html', context)
     
     
 def current_user (request):
@@ -27,13 +31,18 @@ def current_user (request):
     context = {'username' : user_name}
     return render ( 'index.html' , context )
 
-def index (request):
-    items = Products.objects.all()
+# def index (request):
+#     items = Products.objects.all()
+#     bnr_img = banner_images.objects.all().first()
     
-    return render(request, 'index.html', {'item' : items})
+    
+#     context = {
+#         'item' : items,
+#         'photos' : bnr_img,
+#         }
+#     return render(request, 'index.html',context )
 
-def banner (request):
-    bnr_img = banner_images.objects.all()
+# def banner (request):
     
-    return render(request, 'index.html', {'photos' : bnr_img})
+#     return render(request, 'index.html',)
 

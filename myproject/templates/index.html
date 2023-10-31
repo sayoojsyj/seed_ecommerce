@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap' %}" rel="stylesheet">
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap'%}" rel="stylesheet">
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap'%}" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap'  rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i&display=swap' rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700&display=swap' rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.css' %}">
@@ -94,63 +94,77 @@
 	    </div>
 	  </nav>
     <!-- END nav -->
+
 	<section>
-    {% comment %} <section id="home-section" class="hero">
-		  <div class="home-slider owl-carousel">
-			{% for banner_photos in photos %} 
-			<div class="slider-item" style="background-image: url({{ banner_photos.images1.url }});">
-				<div class="overlay"></div>
-				<div class="container">
-				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
+		{% comment %} <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+			  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+			  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+			  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+			  {% for banner_photos in photos %}
+			  <div class="carousel-item{% if loop.first %} active{% endif %}">
+				<img class="d-block w-100" src="{{ banner_photos.images.url }}/800x400?auto=yes&bg=777&fg=555&text=First slide" alt="First slide">
+			  </div>
+			  {% endfor %}
+			  
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			  <span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			  <span class="sr-only">Next</span>
+			</a>
+		  </div>  {% endcomment %}
 
-					<div class="col-md-12 ftco-animate text-center">
-					
-					<h2 class="subheading mb-4">We deliver Organic and Hybrid &amp; Seeds</h2>
-					<p><a href="#" class="btn btn-primary">View Details</a></p>
-					</div>
 
-				</div>
-				</div>
+		  
+		  {% comment %} <div class="#">
+			<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-inner">
+				{% for banner_photos in photos %}
+				  <div class="carousel-item{% if forloop.first %} active{% endif %}">
+					<img src="{{ banner_photos.image.url }}" class="d-block w-100" alt="banner image" height=450px,width=50px>
+				  </div>
+				{% endfor %}
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			  </button>
 			</div>
 			
+		  </div> {% endcomment %}
 
-			<div class="slider-item" style="background-image: url({{ banner_photos.images2.url }});">
-				<div class="overlay"></div> {% endcomment %}
-				{% comment %} <div class="container">
-				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
-					<div class="col-sm-12 ftco-animate text-center">
-					<h1 class="mb-2">We deliver Organic and Hybrid Seeds</h1>
-					<h2 class="subheading mb-4">We deliver organic vegetables &amp; fruits</h2>
-					<p><a href="#" class="btn btn-primary">View Details</a></p>
-					</div>
-
-				</div>
-				</div> {% endcomment %}
-			{% comment %} </div> {% endcomment %}
-			 
-			<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-				  <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-				  <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-				  <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner">
+		  <div class="container">
+			<div id="carouselExampleAutoplaying" class="carousel slide" data-ride="carousel">
+			  <div class="carousel-inner">
 				{% for banner_photos in photos %}
-				  <div class="carousel-item active">
-					<img class="d-block w-100" src="{{ banner_photos.images1.url }}" alt="First slide">
+				  <div class="carousel-item{% if forloop.first %} active{% endif %}">
+					<img src="{{ banner_photos.images.url }}" class="d-block w-100" alt="banner image" style="height: 450px; width: 50px;">
 				  </div>
-				{% endfor %} 
-				  
-				</a>
-				<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-				  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-				  <span class="sr-only">Next</span>
-				</a>
+				{% endfor %}
 			  </div>
+			  <a class="carousel-control-prev" href="#carouselExampleAutoplaying" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			  </a>
+			  <a class="carousel-control-next" href="#carouselExampleAutoplaying" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			  </a>
+			</div>
+		  </div>
+		  
 
-		  	
-	    </div>
 		
     </section>
 
@@ -173,14 +187,14 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-1.jpg;">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end";">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">Fruits</a></h2>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end";">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">Vegetables</a></h2>
 							</div>
@@ -189,14 +203,14 @@
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end";">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">Herbs</a></h2>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url(images/category-2.jpg);">
+						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end";">
 							<div class="text px-3 py-1">
 								<h2 class="mb-0"><a href="#">Flowers</a></h2>
 							</div>
@@ -378,7 +392,7 @@
   <script src="{% static  'js/jquery.animateNumber.min.js'%}"></script>
   <script src="{% static  'js/bootstrap-datepicker.js'%}"></script>
   <script src="{% static  'js/scrollax.min.js'%}"></script>
-  <script src="{% static  'https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'%}"></script>
+  <script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false'></script>
   <script src="{% static  'js/google-map.js'%}"></script>
   <script src="{% static  'js/main.js'%}"></script>
     
