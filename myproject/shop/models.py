@@ -38,8 +38,10 @@ class Products (models.Model):
         return self.name
 
 class banner_images(models.Model):
-    images = models.ImageField(upload_to=get_file_path, blank=True, null=True)
-    description = models.TextField()
+    images1 = models.ImageField(upload_to=get_file_path, blank=True, null=True)
+    images2 = models.ImageField(upload_to=get_file_path, blank=True, null=True)
+    status = models.BooleanField(default=False, help_text="0=default, 1=hidden")
+    
     
     def __str__(self):
-        return self.images
+        return f"Banner Images: Image1({self.images1}), Image2({self.images2})"
