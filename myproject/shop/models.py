@@ -12,6 +12,7 @@ def get_file_path(request, filename):
 class Category (models.Model):
     Category_id = models.UUIDField(primary_key=True,default=uuid.uuid4,editable=False)
     name=models.CharField(max_length=200 , null=True)
+    image = models.ImageField(upload_to=get_file_path, blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
     

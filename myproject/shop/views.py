@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Products , banner_images
+from .models import *
 from accounts.models import CustomUser
 from django.views import View
 from django.views.decorators.cache import never_cache
@@ -16,12 +16,13 @@ class IndexView(View):
     template_name = 'index.html'
 
     def get(self, request):
-        bnr_img = banner_images.objects.all()
-       
         items = Products.objects.all()
+        bnr_img = banner_images.objects.all()
+        catgry = Category.objects.all()
         context = {
         'item' : items,
         'photos' : bnr_img,
+        'Categories': catgry,
         }
         return render(request, 'index.html', context)
     

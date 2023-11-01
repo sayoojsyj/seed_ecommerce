@@ -164,9 +164,12 @@ pre {
 figure {
   margin: 0 0 1rem; }
 
-img {
+.category-wrap img {
+  width: 100px;
+  height: 100px;
   vertical-align: middle;
-  border-style: none; }
+  border-style: none; 
+}
 
 svg {
   overflow: hidden;
@@ -9184,7 +9187,7 @@ textarea.form-control {
   font-size: 24px; }
 
 .ftco-section {
-  padding: 6em 0;
+  padding: 6em 0 ;
   position: relative; }
 
 .ftco-no-pt {
@@ -10011,3 +10014,7 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+   
+        
+  
