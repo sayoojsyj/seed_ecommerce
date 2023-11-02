@@ -44,7 +44,7 @@
         }
     </style> {% endcomment %}
   </head>
-  <body class="goto-here">
+  <body class="goto-here"  style="padding : 0">
 		{% comment %} <div class="py-1 bg-primary">
     	<div class="container">
     		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
@@ -104,6 +104,7 @@
 		   	  {% endif%}
 			  {% comment %} <li class="nav-item"><a href="{% url "signup" %}" class="nav-link">Signup</a></li>
 			  <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">Login</a></li> {% endcomment %}
+			  {% comment %} <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li> {% endcomment %}
 	        </ul>
 	      </div>
 	    </div>
@@ -154,7 +155,7 @@
 		<section class=" ftco-section ftco-category ftco-no-pt" style="padding-bottom: 0">
 			<div class="container">
 				<div class="row"> 
-					<div class="col-md-12 d-flex"> 
+					<div class="col-md-12 d-flex" > 
 						{% for CategoryItems in Categories %}
 						<div class="catImg m-2 category-wrap ftco-animate img mb-4 d-flex align-items-end">
 							<img src="{{ CategoryItems.image.url }}" alt="category" >
@@ -167,7 +168,7 @@
 					</div>
 				</div> 
 				<div class="col-md-12 ftco-animate text-center">
-					<p><a href="#" class="btn btn-primary">View more</a></p>
+					<p><a href="{% url "category" %}" class="btn btn-primary">View more category</a></p>
 				</div>
 			</div>
 		</section>

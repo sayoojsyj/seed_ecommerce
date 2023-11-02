@@ -32,18 +32,11 @@ def current_user (request):
     context = {'username' : user_name}
     return render ( 'index.html' , context )
 
-# def index (request):
-#     items = Products.objects.all()
-#     bnr_img = banner_images.objects.all().first()
-    
-    
-#     context = {
-#         'item' : items,
-#         'photos' : bnr_img,
-#         }
-#     return render(request, 'index.html',context )
+def category (request):
+    catgry= Category.objects.all()
+    context = {
+        'Categories': catgry,
+        }
+    return render (request, "Products/category.html",context)
 
-# def banner (request):
-    
-#     return render(request, 'index.html',)
 
