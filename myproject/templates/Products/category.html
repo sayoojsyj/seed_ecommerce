@@ -28,19 +28,29 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      .catImg img {
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        border-style: none; 
+        } 
+    </style>
+    
   </head>
   <body>
 		
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
-	      <a class="navbar-brand" href="index.html">SeedEden</a>
+	      {% comment %} <a class="navbar-brand" href="index.html">SeedEden</a> {% endcomment %}
+        <img src="/static/images/large_seededen.png" alt="d"  width="125" height="75">
 	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 	        <span class="oi oi-menu"></span> Menu
 	      </button>
 
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
-	          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+	          <li class="nav-item"><a href="{% url "index" %}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
 	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
@@ -52,19 +62,21 @@
     <!-- END nav -->
 
    
-
+   <br>
 
 	<section class=" ftco-section ftco-category ftco-no-pt" style="padding-bottom: 0">
 		<div class="container">
 			<div class="row"> 
-				<div class="col-md-12 d-flex" > 
+				<div class="col-md-6" >
 					{% for CategoryItems in Categories %}
-					<div class="catImg m-2 category-wrap ftco-animate img mb-4 d-flex align-items-end">
-						<img src="{{ CategoryItems.image.url }}" alt="category" >
-						<div class="text px-3 py-1" style="position: absolute; bottom: 0; left: 0; background: #82ae46; color: #fff; width: 100%;">
-							<h2 class="mb-0"><a href="#">{{ CategoryItems.name }}</a></h2>
-						</div>
-					</div>
+          <a href="{% url 'ProductView' category_name=CategoryItems.name %}">
+            <div class="catImg category-wrap ftco-animate img mb-4 d-flex align-items-end">
+              <img src="{{ CategoryItems.image.url }}" alt="category">
+              <div class="text px-3 py-1" style="position: absolute; bottom: 0; left: 0; background: #82ae46; color: #fff; width: 100%;">
+                <h2 class="mb-0">{{ CategoryItems.name }}</h2>
+              </div>
+            </div>
+          </a>
 					{% endfor %}
 					
 				</div>
@@ -73,13 +85,16 @@
 	</section>
 
 
-  
+  <br>
+  <br>
+  <br>
+  <br>
 
-		<section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
+		{% comment %} <section class="ftco-section ftco-no-pt ftco-no-pb py-5 bg-light">
       <div class="container py-4">
         <div class="row d-flex justify-content-center py-5">
           <div class="col-md-6">
-          	<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter</h2>
+          	<h2 style="font-size: 22px;" class="mb-0">Subcribe to our Newsletter  ddsada</h2>
           	<span>Get e-mail updates about our latest shops and special offers</span>
           </div>
           <div class="col-md-6 d-flex align-items-center">
@@ -92,7 +107,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> {% endcomment %}
     <footer class="ftco-footer ftco-section">
       <div class="container">
       	<div class="row">

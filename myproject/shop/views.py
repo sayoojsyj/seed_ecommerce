@@ -34,9 +34,40 @@ def current_user (request):
 
 def category (request):
     catgry= Category.objects.all()
+    print(catgry)
     context = {
         'Categories': catgry,
         }
     return render (request, "Products/category.html",context)
+# def ProductView(request):
+#     prdct= Products.objects.all()
+#     context = {
+#         'ProductDdetail' : prdct
+#     }
+#     return render (request, "Products/product_view.html",context)
+
+
+# def ProductView(request,category_name):
+#     # if (Category.objects.filter(name=category_name, status=0)):
+#     if Category.objects.filter(name=category_name, status=0).exists():
+#         # prdct= Products.objects.filter(Category_id=category)
+#         prdct = Products.objects.filter(Category_id__name=category_name)
+#         context = {
+#             'ProductDdetail' : prdct
+#         }
+#         return render (request, "Products/product_view.html",context)
+def ProductView(request, category_name):
+    try:
+        category = Category.objects.get(name=category_name)
+        prdct = Products.objects.filter(Category_id=category)
+
+        context = {
+            'ProductDdetail': prdct,
+            'category_name': category_name,
+        }
+        return render(request, "Products/product_view.html", context)
+    except Category.DoesNotExist:
+        return render(request, "category_not_found.html")
+
 
 
