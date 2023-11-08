@@ -67,7 +67,7 @@
               	{% comment %} <a class="dropdown-item" href="shop.html">Shop</a> {% endcomment %}
               	{% comment %} <a class="dropdown-item" href="wishlist.html">Wishlist</a> {% endcomment %}
                 {% comment %} <a class="dropdown-item" href="product-single.html">Single Product</a> {% endcomment %}
-                <a class="dropdown-item" href="cart.html">Cart</a>
+                {% comment %} <a class="dropdown-item" href="cart.html">Cart</a> {% endcomment %}
                 {% comment %} <a class="dropdown-item" href="checkout.html">Checkout</a> {% endcomment %}
               {% comment %} </div> {% endcomment %}
             </li>
@@ -82,7 +82,7 @@
 	  </nav>
     <!-- END nav -->
 
-    <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
+    {% comment %} <div class="hero-wrap hero-bread" style="background-image: url('{% static 'images/bg_1.jpg' %}');">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -91,53 +91,49 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> {% endcomment %}
+<br>
+<br>
 
     <section class="ftco-section" style="padding: 0">
-    	{% comment %} <div class="container">
-			<div class="row justify-content-center mb-3 pb-3">
-				<div class="col-md-12 heading-section text-center ftco-animate">
-					<h2 class="mb-4">Our Products</h2>
-				</div>
-        	</div>   		
-    	</div> {% endcomment %}
-
+    	
     	<div class="container">
     		<div class="row">
-				<a href="product">	
-					{% for products in ProductDdetail %}
-						<div class="col-md-6 col-lg-3 ftco-animate">
-							<div class="product">
-								<a href="#" class="img-prod"><img class="img-fluid" src="{{ products.image.url }}" alt="Colorlib Template">
-									{% comment %} <span class="status">30%</span> {% endcomment %}
-									<div class="overlay"></div>
-								</a>
-								<div class="text py-3 pb-4 px-3 text-center">
-									<h3><a href="#">{{ products.name }}</a></h3>
-									<p class="description">{{ products.description }}</p>
-									<div class="d-flex">
-										<div class="pricing">
-											<p class="price"><span class="mr-2 price-dc"></span><span class="price-sale"> ₹ {{ products.price }}</span></p>
-										</div>
-									</div>
-									<div class="bottom-area d-flex px-3">
-										<div class="m-auto d-flex">
-											<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
-												<span><i class="ion-ios-menu"></i></span>
-											</a>
-											<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
-												<span><i class="ion-ios-cart"></i></span>
-											</a>
-											<a href="#" class="heart d-flex justify-content-center align-items-center ">
-												<span><i class="ion-ios-heart"></i></span>
-											</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					{% endfor %}
-				</a>
+          {% for product in Products %}
+            {% comment %} <a href="{% url 'product_detail' id=product.products_id %}">  {% endcomment %}
+              <div class="col-md-6 col-lg-3 ftco-animate">
+                <div class="product">
+                  <a href="{% url 'product_detail' id=product.products_id %}" class="img-prod"><img class="img-fluid" src="{{ product.image.url }}" alt="Colorlib Template">
+                    {% comment %} <span class="status">30%</span>  {% endcomment %}
+                    <div class="overlay"></div>
+                  </a>
+                  <div class="text py-3 pb-4 px-3 text-center">
+                    <h3><a href="#">{{ product.name }}</a></h3>
+                    <p class="description">{{ product.description }}</p>
+                    <div class="d-flex">
+                      <div class="pricing">
+                        <p class="price"><span class="mr-2 price-dc"></span><span class="price-sale"> ₹ {{ product.price }}</span></p>
+                      </div>
+                    </div>
+                    <div class="bottom-area d-flex px-3">
+                      <div class="m-auto d-flex">
+                        <a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
+                          <span><i class="ion-ios-menu"></i></span>
+                        </a>
+                        <a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+                          <span><i class="ion-ios-cart"></i></span>
+                        </a>
+                        <a href="#" class="heart d-flex justify-content-center align-items-center ">
+                          <span><i class="ion-ios-heart"></i></span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% comment %} </a> {% endcomment %}
+            {% endfor %}
+				  
 
 					
     		</div>

@@ -47,17 +47,15 @@ class SignupView(View):
     
     
     def post(self, request):
-        # if request.user.is_authenticated:
-        #     messages.warning(request, "You are logged in")
-        #     return redirect('/')
+      
         form_details = CustomUserForm(request.POST)
         if form_details.is_valid():
             form_details.save()
             messages.success(request, "Registered successfully")
             return redirect('login')
-        return redirect('signup')
-        # context = {'form': form_details}
-        # return render(request, self.template_name, context)
+        messages.error(request, "Registration failed")
+        return render(request, self.template_name, {'form': form_details})
+
     
 @method_decorator(cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True), name='dispatch')
  

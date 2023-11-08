@@ -1,10 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from .models import *
 from accounts.models import CustomUser
 from django.views import View
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
-
+ 
 # Create your views here.
 
 
@@ -15,6 +15,7 @@ from django.utils.decorators import method_decorator
 class IndexView(View):
     template_name = 'index.html'
 
+#for index page
     def get(self, request):
         items = Products.objects.all()
         bnr_img = banner_images.objects.all()
@@ -32,42 +33,39 @@ def current_user (request):
     context = {'username' : user_name}
     return render ( 'index.html' , context )
 
-def category (request):
-    catgry= Category.objects.all()
-    print(catgry)
-    context = {
+#for allcategory page
+
+class AllCategoryView(View):
+    
+    def get(self, request):
+        catgry= Category.objects.all()
+        context = {
         'Categories': catgry,
         }
-    return render (request, "Products/category.html",context)
-# def ProductView(request):
-#     prdct= Products.objects.all()
-#     context = {
-#         'ProductDdetail' : prdct
-#     }
-#     return render (request, "Products/product_view.html",context)
+        return render (request,'Products/category.html',context)
 
+#for a perticular category listing page
 
-# def ProductView(request,category_name):
-#     # if (Category.objects.filter(name=category_name, status=0)):
-#     if Category.objects.filter(name=category_name, status=0).exists():
-#         # prdct= Products.objects.filter(Category_id=category)
-#         prdct = Products.objects.filter(Category_id__name=category_name)
-#         context = {
-#             'ProductDdetail' : prdct
-#         }
-#         return render (request, "Products/product_view.html",context)
-def ProductView(request, category_name):
-    try:
-        category = Category.objects.get(name=category_name)
+class CategoryView(View):
+     
+    def get(self, request,id):
+        category = Category.objects.get(Category_id=id)
         prdct = Products.objects.filter(Category_id=category)
-
         context = {
-            'ProductDdetail': prdct,
-            'category_name': category_name,
+            'Products': prdct,
         }
-        return render(request, "Products/product_view.html", context)
-    except Category.DoesNotExist:
-        return render(request, "category_not_found.html")
+        return render(request, "Products/product_view.html",context )
+    
+#for a perticuar single product display page
+
+class ProductDetail(View):
+    def get(self,request,id):
+        product = get_object_or_404(Products, products_id=id)
+        context = {
+             'product': product
+        }
+        return render(request, 'Products/product-single.html', context)
+    
 
 
 

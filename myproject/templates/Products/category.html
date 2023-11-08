@@ -68,12 +68,13 @@
 		<div class="container">
 			<div class="row"> 
 				<div class="col-md-6" >
-					{% for CategoryItems in Categories %}
-          <a href="{% url 'ProductView' category_name=CategoryItems.name %}">
+					{% for Category in Categories %}
+          
+          <a href="{% url 'category_products' id=Category.Category_id %}">
             <div class="catImg category-wrap ftco-animate img mb-4 d-flex align-items-end">
-              <img src="{{ CategoryItems.image.url }}" alt="category">
+              <img src="{{ Category.image.url }}" alt="category">
               <div class="text px-3 py-1" style="position: absolute; bottom: 0; left: 0; background: #82ae46; color: #fff; width: 100%;">
-                <h2 class="mb-0">{{ CategoryItems.name }}</h2>
+                <h2 class="mb-0">{{ Category.name }}</h2>
               </div>
             </div>
           </a>

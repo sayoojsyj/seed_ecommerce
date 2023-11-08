@@ -35,7 +35,7 @@ class CustomUserForm(UserCreationForm):
 
     def clean_name(self):
         name = self.cleaned_data['name']
-        if not len(name) >= 4:
-             raise forms.ValidationError("Given user name is short.")
+        if len(name) <= 4:
+            raise forms.ValidationError("Given user name is short.")
         return name
             

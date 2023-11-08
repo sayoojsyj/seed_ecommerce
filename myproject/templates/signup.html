@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     
     
-
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
 
 </head>
 <body>
@@ -61,8 +62,8 @@
                                     {% if form.errors.name %}
                                     <label class="text-danger">{{form.errors.name}}</label>
                                     {% endif %}
-    
                                 </div>
+
                                 <div class="form-group">
                                     <label for="">Email :</label>
                                     {{form.email}}
@@ -70,6 +71,7 @@
                                     <label class="text-danger">{{form.errors.email}}</label>
                                     {% endif %}
                                 </div>
+
                                 <div class="form-group">
                                     <label for="">Password :</label>
                                     {{form.password1}}
@@ -77,6 +79,7 @@
                                     <label class="text-danger">{{form.errors.password1}} </label>
                                     {% endif %}
                                 </div>
+
                                 <div class="form-group">
                                     <label for="">Confirm Password :</label>
                                     {{form.password2}}
@@ -84,6 +87,7 @@
                                     <label class="text-danger">{{form.errors.password2}}</label>
                                     {% endif %}
                                 </div>
+
                                 <div class="form-group">
                                     <label for="">Phone number:</label>
                                     {{form.phone}}
@@ -91,6 +95,7 @@
                                     <label class="text-danger">{{form.errors.phone}}</label>
                                     {% endif %}
                                 </div>
+                                
                                 <button type="submit" class="btn float-end shadow btn-success px-4">Signup</button>
                             </form>
     
@@ -105,44 +110,20 @@
         </div>
     
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> 
-    <script>
-        function showSignupSuccessAlert() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Signup Successful',
-                text: 'You have successfully signed up!',
-                timer: 5000, 
-                showConfirmButton: false, 
-            });
-        }
-        
+
+
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <script>
             
-
-    
-        // Your signup form handling code
-        
-        // If the signup is successful, call the SweetAlert function
-        {% comment %} if (signupSuccessful) {
-            showSignupSuccessAlert();
-        } {% endcomment %}
-        document.getElementById('signup-form')window.addEventListener('submit', function (e) {
-            e.preventDefault(); // Prevent the default form submission behavior
-        
-            // Your form validation and submission logic here
-            const signupSuccessful  = true;
-            // If the signup is successful, trigger the SweetAlert
-            if (signupSuccessful) {
-                showSignupSuccessAlert();
-            }
-        })
-    </script>
+            
+            ('{% for msg in messages %}')
+                alertify.set('notifier', 'position', 'bottom-right');
+                alertify.success('{{ msg }}');
+            ('{% endfor %}')
+        </script>
         
 
-
-        
-
-    
     
 </body>
 </html>
