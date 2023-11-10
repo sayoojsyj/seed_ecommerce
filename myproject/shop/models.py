@@ -1,5 +1,6 @@
 from django.db import models
 import uuid,os,datetime
+from accounts.models import CustomUser
 
 #Create your models here.
 
@@ -45,3 +46,8 @@ class banner_images(models.Model):
     def __str__(self):
         return str(self.images)
     
+class cart(models.Model):    
+    user =models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    product =models.ForeignKey(Products, on_delete=models.CASCADE)
+    product_qty = models.IntegerField(null=False, blank=False)
+    created_at = models.DateTimeField(auto_now_add=True)

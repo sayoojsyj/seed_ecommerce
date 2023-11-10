@@ -28,10 +28,10 @@ class IndexView(View):
         return render(request, 'index.html', context)
     
     
-def current_user (request):
-    user_name = CustomUser.objects.all()
-    context = {'username' : user_name}
-    return render ( 'index.html' , context )
+# def current_user (request):
+#     user_name = CustomUser.objects.all()
+#     context = {'username' : user_name}
+#     return render ( 'index.html' , context )
 
 #for allcategory page
 
