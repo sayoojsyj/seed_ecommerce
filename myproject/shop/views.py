@@ -1,9 +1,11 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from .models import *
 from accounts.models import CustomUser
 from django.views import View
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
+from django.http import JsonResponse,HttpResponseRedirect
+from django.urls import reverse
  
 # Create your views here.
 
@@ -66,6 +68,59 @@ class ProductDetail(View):
         }
         return render(request, 'Products/product-single.html', context)
     
+    
+# def addtocart(request):
+#     if request.method == 'POST':
+#         if request.user.is_authenticated:
+#             prod_id = request.POST.get('product_id')
+#             product_chek = Products.objects.get(products_id = prod_id)
+#             if (product_chek):
+#                 if (cart.objects.filter(user=request.user.id, product_id=prod_id)):
+#                     return JsonResponse({'status':'product alredy added in cart'})
+                
+#                 else:
+#                     prod_qty = int(request.POST.get('product_qty'))
+#                     if product_chek.quantity >= prod_qty :
+#                         cart.objects.create(user =request.user, product_id=prod_id, product_qty=prod_qty)
+#                         return JsonResponse({'status':'product added succesfully'})
+#                     else:
+#                         return JsonResponse({'status':'only '+str(product_chek.quantity)+'quantity is available'})
+#             else:
+#                  return JsonResponse({'status':'No such product found'})
+                
+            
+#         else:
+#             return JsonResponse({'status':"Login to continue"})
+#     return redirect('index.html')
+
+
+
+
+class AddToCartView(View):
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            prod_id = request.POST.get('product_id')
+            product_check = get_object_or_404(Products, products_id=prod_id)
+
+            if cart.objects.filter(user=request.user.id, product_id=prod_id).exists():
+                return JsonResponse({'status': 'Product already added in cart'})
+            else:
+                prod_qty = int(request.POST.get('product_qty'))
+                if product_check.quantity >= prod_qty:
+                    cart.objects.create(user=request.user, product_id=prod_id, product_qty=prod_qty)
+                    return JsonResponse({'status': 'Product added successfully'})
+                else:
+                    return JsonResponse({'status': f'Only {product_check.quantity} quantity is available'})
+        else:
+            return JsonResponse({'status': "Login to continue"})
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect(reverse('index.html'))
+
+
+
+
+
 
 
 

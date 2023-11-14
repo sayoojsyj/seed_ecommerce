@@ -12,4 +12,7 @@ urlpatterns = [
     path('categories/<uuid:id>/', CategoryView.as_view(), name='category_products'),
     path('product/<uuid:id>/', views.ProductDetail.as_view(), name='product_detail'),
     
+    # path('add-to-cart', views.addtocart, name= 'addtocart')
+    path('add-to-cart', AddToCartView.as_view(), name='add-to-cart'),
+    
 ]

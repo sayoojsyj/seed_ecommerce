@@ -29,29 +29,14 @@
     <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
     <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+
+	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
   </head>
   <body class="goto-here">
-		{% comment %} <div class="py-1 bg-primary">
-    	<div class="container">
-    		<div class="row no-gutters d-flex align-items-start align-items-center px-md-0">
-	    		<div class="col-lg-12 d-block">
-		    		<div class="row d-flex">
-		    			<div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-phone2"></span></div>
-						    <span class="text">+ 1235 2355 98</span>
-					    </div>
-					    <div class="col-md pr-4 d-flex topper align-items-center">
-					    	<div class="icon mr-2 d-flex justify-content-center align-items-center"><span class="icon-paper-plane"></span></div>
-						    <span class="text">youremail@email.com</span>
-					    </div>
-					    <div class="col-md-5 pr-4 d-flex topper align-items-center text-lg-right">
-						    <span class="text">3-5 Business days delivery &amp; Free Returns</span>
-					    </div>
-				    </div>
-			    </div>
-		    </div>
-		  </div>
-    </div> {% endcomment %}
+		
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	    <div class="container">
 	      <a class="navbar-brand" href="index.html">Vegefoods</a>
@@ -62,16 +47,7 @@
 	      <div class="collapse navbar-collapse" id="ftco-nav">
 	        <ul class="navbar-nav ml-auto">
 	          <li class="nav-item"><a href="{% url "index" %}" class="nav-link">Home</a></li>
-	          {% comment %} <li class="nav-item active dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
-              <div class="dropdown-menu" aria-labelledby="dropdown04">
-              	<a class="dropdown-item" href="shop.html">Shop</a>
-              	<a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                <a class="dropdown-item" href="product-single.html">Single Product</a>
-                <a class="dropdown-item" href="cart.html">Cart</a>
-                <a class="dropdown-item" href="checkout.html">Checkout</a>
-              </div>
-            </li> {% endcomment %}
+	          
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          {% comment %} <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> {% endcomment %}
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
@@ -83,16 +59,6 @@
 	  </nav>
     <!-- END nav -->
 
-    {% comment %} <div class="hero-wrap hero-bread" style="background-image: url('images/bg_1.jpg');">
-      <div class="container">
-        <div class="row no-gutters slider-text align-items-center justify-content-center">
-          <div class="col-md-9 ftco-animate text-center">
-          	<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home</a></span> <span class="mr-2"><a href="index.html">Product</a></span> <span>Product Single</span></p>
-            <h1 class="mb-0 bread">Product Single</h1>
-          </div>
-        </div>
-      </div>
-    </div> {% endcomment %}
 
     <section class="ftco-section">
     	<div class="container">
@@ -115,19 +81,25 @@
 							</div>
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
-	             	<span class="input-group-btn mr-2">
-	                	<button type="button" class="decrementbtn"  data-type="minus" data-field="">
-	                   <i class="ion-ios-remove"></i>
-	                	</button>
-	            		</span>
-	            
-					<input type="number" id="quantity" name="quantity" class="form-control qty-input input-number" value="1" min="1" max="10" readonly>
+					<div class="d-flex" >
+						
+							{% csrf_token %}
+							<input type="hidden" value="{{ product.products_id}}" class="prod_id">			
+						<span class="input-group-btn mr-2">
+							<button type="button" class="decrementbtn"  data-type="minus" data-field="">
+						<i class="ion-ios-remove"></i>
+							</button>
+							</span>
+					
+						<input type="number" id="quantity" name="quantity" class="form-control qty-input input-number" value="1" min="1" max="10" readonly>
 
-	             	<span class="input-group-btn ml-2">
-	                	<button type="button" class="incrementbtn" data-type="plus" data-field="">
-	                     <i class="ion-ios-add"></i>
-	                 </button>
-	             	</span>
+						<span class="input-group-btn ml-2">
+							<button type="button" class="incrementbtn" data-type="plus" data-field="">
+							<i class="ion-ios-add"></i>
+						</button>
+						</span>
+						
+					</div>
 	          	</div>
 	          	<div class="w-100"></div>
 	          	<div class="col-md-12">
@@ -135,14 +107,9 @@
 					
 	          	</div>
 				</div>
-					{% comment %} <button style="border: none;"><a href="cart.html" class="btn btn-black " >Add to Cart</a></button>
-					<button style="border: none;"><p><a href="cart.html" class="btn btn-black ">Add to whishlist</a></p></button> {% endcomment %}
-					 {% comment %} <button style="background-color: #82ae46 !important; color: white !important; border: none !important; border-radius: 10px !important; padding: 10px 20px !important; margin-right: 10px !important;"><a href="cart.html">Add to Cart</a></button> {% endcomment %}
 					
-					
-					 <button type="button" style="border-radius: 10px;"><p><a href="cart.html" class= "addToCartBtn" >Add to Cart</a></p></button>
-					<button type="button" style="border-radius: 10px;"><p><a href="cart.html" >Add to whishlist</a></p></button>
-					
+					<input class="btn btn-primary addToCartBtn" type="submit" value="Add to Cart">
+					<input class="btn btn-primary" type="submit" value="Add to whishlist">
 			
 				</div>
 					
@@ -251,11 +218,12 @@
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 
-
-
+ 
+  
 
   <script src="{% static 'js/jquery.min.js '%}"></script>
   <script src="{% static 'js/jquery-migrate-3.0.1.min.js '%}"></script>
+  
   <script src="{% static 'js/custom.js '%}"></script>
   <script src="{% static 'js/popper.min.js '%}"></script>
   <script src="{% static 'js/bootstrap.min.js '%}"></script>
@@ -271,7 +239,8 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
   <script src="{% static 'js/google-map.js '%}"></script>
   <script src="{% static 'js/main.js '%}"></script>
-  <script>
+  
+  {% comment %} <script>
 		$(document).ready(function(){
 
 		var quantitiy=0;
@@ -300,13 +269,23 @@
 		        // If is not undefined
 		      
 		            // Increment
-		            if(quantity>0){
+		            if(quantity > 0){
 		            $('#quantity').val(quantity - 1);
 		            }
 		    });
 		    
 		});
-	</script>
+	</script> {% endcomment %}
+	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script>
+	  
+	  
+	  ('{% for msg in messages %}')
+		  alertify.set('notifier', 'position', 'bottom-right');
+		  alertify.success('{{ msg }}');
+	  ('{% endfor %}')
+  </script>
     
   </body>
 </html>
