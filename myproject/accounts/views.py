@@ -7,29 +7,12 @@ from .forms import CustomUserForm
 from django.views.decorators.cache import never_cache
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
+from django.core.mail import send_mail
+from django.conf import settings
+import random
 
-# from accounts.models import CustomUser
-# from shop.views import items
-# from shop.models import Products
 
 
-# @method_decorator(never_cache, name='dispatch')
-# class IndexView(View):
-#     template_name = 'index.html'
-
-#     def get(self, request):
-#         # context = {'item' : items}
-        
-#         # return render(request, self.template_name,context)
-#         items = Products.objects.all()
-    
-#         return render(request, 'index.html', {'item' : items})
-    
-    
-# def current_user (request):
-#     user_name = CustomUser.objects.all()
-#     context = {'username' : user_name}
-#     return render ( 'index.html' , context )
 
 
 @method_decorator(never_cache, name='dispatch')
@@ -47,18 +30,62 @@ class SignupView(View):
     
     
     def post(self, request):
-      
         form_details = CustomUserForm(request.POST)
         if form_details.is_valid():
             form_details.save()
+    
+            # Generate and send OTP
+            user_email = form_details.cleaned_data['email']
+
+            # Generate a 6-digit OTP
+            generated_otp = ''.join([str(random.randint(0, 9)) for _ in range(6)])
+
+            # Store OTP in session
+            request.session['otp'] = generated_otp
+
+            # Send OTP to the user via email
+            send_mail(
+                'Your OTP for Signup',
+                f'Your OTP is: {generated_otp}',
+                settings.DEFAULT_FROM_EMAIL,
+                [user_email],
+                fail_silently=False,
+            )
+            return redirect('otp-verification', email=user_email)
+            
+        else:
+            messages.error(request, "Registration failed")
+            return render(request, self.template_name, {'form': form_details})
+
+
+
+
+
+class OTPVerificationView(View):
+    template_name = 'otp_verification.html'
+
+    def get(self, request, email):
+        # Render the OTP verification form
+        context = {'email': email}
+        return render(request, self.template_name, context)
+
+    def post(self, request, email):
+        entered_otp = request.POST.get('otp')
+        stored_otp = request.session.get('otp')  
+
+        if entered_otp == stored_otp:
             messages.success(request, "Registered successfully")
             return redirect('login')
-        messages.error(request, "Registration failed")
-        return render(request, self.template_name, {'form': form_details})
+        else:
+            print('Invalid OTP entered:', entered_otp)
+            messages.error(request, "Invalid OTP")
+            return redirect('otp-verification', email=email)
+
+
+    
 
     
 @method_decorator(cache_control(max_age=0, no_cache=True, no_store=True, must_revalidate=True), name='dispatch')
- 
 # @method_decorator(never_cache, name='dispatch')
 class LoginView(View):
     template_name = 'login.html'
