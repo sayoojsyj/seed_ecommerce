@@ -68,32 +68,6 @@ class ProductDetail(View):
         }
         return render(request, 'Products/product-single.html', context)
     
-    
-# def addtocart(request):
-#     if request.method == 'POST':
-#         if request.user.is_authenticated:
-#             prod_id = request.POST.get('product_id')
-#             product_chek = Products.objects.get(products_id = prod_id)
-#             if (product_chek):
-#                 if (cart.objects.filter(user=request.user.id, product_id=prod_id)):
-#                     return JsonResponse({'status':'product alredy added in cart'})
-                
-#                 else:
-#                     prod_qty = int(request.POST.get('product_qty'))
-#                     if product_chek.quantity >= prod_qty :
-#                         cart.objects.create(user =request.user, product_id=prod_id, product_qty=prod_qty)
-#                         return JsonResponse({'status':'product added succesfully'})
-#                     else:
-#                         return JsonResponse({'status':'only '+str(product_chek.quantity)+'quantity is available'})
-#             else:
-#                  return JsonResponse({'status':'No such product found'})
-                
-            
-#         else:
-#             return JsonResponse({'status':"Login to continue"})
-#     return redirect('index.html')
-
-
 
 
 class AddToCartView(View):
@@ -119,7 +93,31 @@ class AddToCartView(View):
 
 
 
+# 
+# def CartView(request):
+#     cart= cart.objects.filter(user=request.user)
+#     context={'cart':cart}
+#     return render(request, 'Products/cart.html', context)
 
+# class CartView(View):
+    
+#     def get(self,request):
+#         cart= cart.objects.filter(user=request.user)
+#         context={'cart':cart}
+#         return render(request, 'Products/cart.html', context)
+
+class CartView(View):
+    template_name = 'Products/cart.html'
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            cart_items = cart.objects.filter(user=request.user)
+        else:
+            cart_items = None
+        context = {'cart': cart_items}
+        return render(request, self.template_name, context)
+        
+    
 
 
 
