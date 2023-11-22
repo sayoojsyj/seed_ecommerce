@@ -51,7 +51,7 @@
 	          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
 	          {% comment %} <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li> {% endcomment %}
 	          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-	          <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
+	          <li class="nav-item cta cta-colored"><a href="{% url "cart" %}" class="nav-link"><span class="icon-shopping_cart "></span>[{{ total_quantity }}]</a></li>
 
 	        </ul>
 	      </div>
@@ -71,6 +71,16 @@
     				
     				<p class="price"><span>₹ {{ product.price }} </span></p>
     				<p>{{ product.description }}</p>
+
+					{% if product.quantity >= 10 %}
+						<label class="text-center fw-bold"><h6>In stock</h6></label>
+					{% comment %} {% else %} {% endcomment %}
+					{% elif product.quantity == 0 %}
+						<label class="text-center fw-bold"><h6>Out of stock</h6></label>
+					{% else %}
+						<label class="text-center fw-bold text-danger"><h6>only {{product.quantity}} items left</h6></label>
+					{% endif %}
+
 						<div class="row mt-4">
 							<div class="col-md-6">
 								<div class="form-group d-flex">
@@ -82,9 +92,8 @@
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 					<div class="d-flex" >
-						
-							{% csrf_token %}
-							<input type="hidden" value="{{ product.products_id}}" class="prod_id">			
+							<input type="hidden" value="{{ product.products_id}}" class="prod_id">
+							{% csrf_token %}	
 						<span class="input-group-btn mr-2">
 							<button type="button" class="decrementbtn"  data-type="minus" data-field="">
 						<i class="ion-ios-remove"></i>
