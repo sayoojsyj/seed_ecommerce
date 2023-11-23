@@ -66,6 +66,7 @@
     			<div class="col-lg-6 mb-5 ftco-animate">
     				<a href="images/product-1.jpg" class="image-popup"><img src="{{ product.image.url }}" class="img-fluid" alt="Colorlib Template"></a>
     			</div>
+				
     			<div class="col-lg-6 product-details pl-md-5 ftco-animate ">
     				<h3>{{ product.name }}</h3>
     				
@@ -73,10 +74,9 @@
     				<p>{{ product.description }}</p>
 
 					{% if product.quantity >= 10 %}
-						<label class="text-center fw-bold"><h6>In stock</h6></label>
-					{% comment %} {% else %} {% endcomment %}
+						<label class="text-center fw-bold text-success"><h6>In stock</h6></label>
 					{% elif product.quantity == 0 %}
-						<label class="text-center fw-bold"><h6>Out of stock</h6></label>
+						<label class="text-center fw-bold text-danger"><h6>Out of stock</h6></label>
 					{% else %}
 						<label class="text-center fw-bold text-danger"><h6>only {{product.quantity}} items left</h6></label>
 					{% endif %}
@@ -92,6 +92,7 @@
 							<div class="w-100"></div>
 							<div class="input-group col-md-6 d-flex mb-3">
 					<div class="d-flex" >
+						{% if product.quantity > 1  %}
 							<input type="hidden" value="{{ product.products_id}}" class="prod_id">
 							{% csrf_token %}	
 						<span class="input-group-btn mr-2">
@@ -107,7 +108,7 @@
 							<i class="ion-ios-add"></i>
 						</button>
 						</span>
-						
+						{% endif %}
 					</div>
 	          	</div>
 	          	<div class="w-100"></div>
@@ -116,10 +117,10 @@
 					
 	          	</div>
 				</div>
-					
-					<input class="btn btn-primary addToCartBtn" type="submit" value="Add to Cart">
-					<input class="btn btn-primary" type="submit" value="Add to whishlist">
-			
+					{% if product.quantity > 1 %}
+						<input class="btn btn-primary addToCartBtn" type="submit" value="Add to Cart">
+						<input class="btn btn-primary" type="submit" value="Add to whishlist">
+					{% endif %}
 				</div>
 					
 		

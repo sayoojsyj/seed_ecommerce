@@ -59,17 +59,15 @@
                                 <div class="form-group mb-0">
                                     <label for="">Name :</label>
                                     {{form.name}}
-                                    {% if form.errors.name %}
                                     <label class="text-danger">{{form.errors.name}}</label>
-                                    {% endif %}
                                 </div>
 
                                 <div class="form-group">
                                     <label for="">Email :</label>
                                     {{form.email}}
-                                    {% if form.errors.email %}
+                                    {% comment %} {% if form.errors.email %} {% endcomment %}
                                     <label class="text-danger">{{form.errors.email}}</label>
-                                    {% endif %}
+                                    {% comment %} {% endif %} {% endcomment %}
                                 </div>
 
                                 <div class="form-group">

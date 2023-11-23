@@ -21,7 +21,6 @@ class IndexView(View):
         items = Products.objects.all()
         bnr_img = banner_images.objects.all()
         catgry = Category.objects.all()
-        
         CartProduct = cart.objects.filter(user=self.request.user.id)
         total_quantity = sum(items.product_qty for items in CartProduct)
         context = {
